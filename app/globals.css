@@ -350,3 +350,34 @@ section {
   }
 
 }
+
+section h2,
+section h4,
+.section-title,
+.title,
+h1.waterHeading {
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  margin-bottom: 12px !important;
+  font-family: 'Montserrat', sans-serif !important;
+
+  /* Gradient text */
+  background: linear-gradient(90deg, #1e3a8a, #2563eb, #0ea5e9) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+
+  /* subtle shadow for readability */
+  text-shadow: 0px 3px 10px rgba(0,0,0,0.15) !important;
+}
+
+/* PROTECT NAVBAR WAVE TITLE */
+.waveTitle h2 {
+  all: unset; /* Prevent global overrides */
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
