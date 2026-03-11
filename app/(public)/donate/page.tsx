@@ -1,15 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-} from "@mui/material";
-import Grid from "@mui/material/Grid";
 import Image from "next/image";
 
 type PaymentMethod = "mpesa" | "tigo" | "airtel" | "card";
@@ -37,8 +28,6 @@ export default function DonatePage() {
     alert(
       `Simulated Payment:\nAmount: ${amount} Tsh\nMethod: ${selectedMethod?.toUpperCase()}\nPhone: ${phone}`
     );
-
-    // Reset form
     setStep(1);
     setSelectedMethod(null);
     setPhone("");
@@ -47,146 +36,158 @@ export default function DonatePage() {
   };
 
   return (
-    <Container sx={{ py: 12 }}>
-      <Paper sx={{ p: 6, maxWidth: 600, mx: "auto" }} elevation={3}>
-        <Typography
-          variant="h4"
-          sx={{ fontWeight: "bold", mb: 4, textAlign: "center" }}
-        >
-          Donate to SCPSF
-        </Typography>
+    <div className="container">
+      <div className="card">
+        <h1>Donate to SCPSF</h1>
 
-        {/* STEP 1: SELECT PAYMENT METHOD */}
+        {/* STEP 1 */}
         {step === 1 && (
           <>
-            <Typography variant="h6" sx={{ mb: 3 }}>
-              Select Payment Method
-            </Typography>
-
-            <Grid container spacing={3} justifyContent="center">
-              {(["mpesa", "tigo", "airtel", "card"] as PaymentMethod[]).map(
-                (method) => (
-                  <Grid item xs={6} sm={3} key={method}>
-                    <Box
-                      onClick={() => handleSelectMethod(method)}
-                      sx={{
-                        cursor: "pointer",
-                        border: "2px solid #E21B1B",
-                        borderRadius: 2,
-                        p: 2,
-                        display: "flex",
-                        alignItems: "center",
-                        flexDirection: "column",
-                        transition: "transform 0.2s",
-                        "&:hover": { transform: "scale(1.05)" },
-                      }}
-                    >
-                      <Image
-                        src={paymentImages[method]}
-                        alt={method}
-                        width={70}
-                        height={70}
-                        style={{ objectFit: "contain" }}
-                      />
-
-                      <Typography
-                        variant="body2"
-                        sx={{ mt: 1, fontWeight: "bold" }}
-                      >
-                        {method.toUpperCase()}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                )
-              )}
-            </Grid>
+            <h2>Select Payment Method</h2>
+            <div className="grid">
+              {(["mpesa", "tigo", "airtel", "card"] as PaymentMethod[]).map((method) => (
+                <div
+                  key={method}
+                  className="grid-item"
+                  onClick={() => handleSelectMethod(method)}
+                >
+                  <Image
+                    src={paymentImages[method]}
+                    alt={method}
+                    width={70}
+                    height={70}
+                    style={{ objectFit: "contain" }}
+                  />
+                  <span>{method.toUpperCase()}</span>
+                </div>
+              ))}
+            </div>
           </>
         )}
 
-        {/* STEP 2: PHONE + AMOUNT */}
+        {/* STEP 2 */}
         {step === 2 && (
           <>
-            <Typography variant="h6" sx={{ mb: 3 }}>
-              Enter Phone Number for {selectedMethod?.toUpperCase()}
-            </Typography>
-
-            <TextField
-              fullWidth
-              label="Phone Number"
+            <h2>Enter Phone Number for {selectedMethod?.toUpperCase()}</h2>
+            <input
+              type="text"
+              placeholder="Phone Number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              sx={{ mb: 3 }}
             />
-
-            <TextField
-              fullWidth
-              label="Donation Amount (Tsh)"
+            <input
               type="number"
+              placeholder="Donation Amount (Tsh)"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              sx={{ mb: 3 }}
             />
-
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{
-                backgroundColor: "#E21B1B",
-                "&:hover": { backgroundColor: "#B71C1C" },
-              }}
-              onClick={() => setStep(3)}
-            >
+            <button className="primary" onClick={() => setStep(3)}>
               Proceed to Payment
-            </Button>
+            </button>
           </>
         )}
 
-        {/* STEP 3: CONFIRM PAYMENT */}
+        {/* STEP 3 */}
         {step === 3 && (
           <>
-            <Typography variant="h6" sx={{ mb: 3 }}>
-              Enter Payment PIN for {selectedMethod?.toUpperCase()}
-            </Typography>
-
-            <TextField
-              fullWidth
-              label="PIN"
+            <h2>Enter Payment PIN for {selectedMethod?.toUpperCase()}</h2>
+            <input
               type="password"
+              placeholder="PIN"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              sx={{ mb: 3 }}
             />
-
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{
-                backgroundColor: "#E21B1B",
-                "&:hover": { backgroundColor: "#B71C1C" },
-              }}
-              onClick={handlePaymentSubmit}
-            >
+            <button className="primary" onClick={handlePaymentSubmit}>
               Confirm Payment
-            </Button>
+            </button>
           </>
         )}
 
-        {/* CANCEL BUTTON */}
-        <Box sx={{ mt: 3, textAlign: "center" }}>
-          <Button
-            color="inherit"
-            onClick={() => {
-              setStep(1);
-              setSelectedMethod(null);
-              setPhone("");
-              setPassword("");
-              setAmount("");
-            }}
-          >
-            Cancel / Change Method
-          </Button>
-        </Box>
-      </Paper>
-    </Container>
+        <button
+          className="cancel"
+          onClick={() => {
+            setStep(1);
+            setSelectedMethod(null);
+            setPhone("");
+            setPassword("");
+            setAmount("");
+          }}
+        >
+          Cancel / Change Method
+        </button>
+      </div>
+
+      <style jsx>{`
+        .container {
+          padding: 3rem 1rem;
+          display: flex;
+          justify-content: center;
+        }
+        .card {
+          max-width: 600px;
+          width: 100%;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+          text-align: center;
+        }
+        h1 {
+          font-size: 2rem;
+          margin-bottom: 1rem;
+        }
+        h2 {
+          font-size: 1.25rem;
+          margin-bottom: 1rem;
+        }
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+        }
+        .grid-item {
+          cursor: pointer;
+          border: 2px solid #E21B1B;
+          border-radius: 8px;
+          padding: 1rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          transition: transform 0.2s;
+        }
+        .grid-item:hover {
+          transform: scale(1.05);
+        }
+        input {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          margin-bottom: 1rem;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          font-size: 1rem;
+        }
+        button {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border: none;
+          border-radius: 6px;
+          font-size: 1rem;
+          cursor: pointer;
+          margin-top: 0.5rem;
+        }
+        .primary {
+          background-color: #E21B1B;
+          color: #fff;
+        }
+        .primary:hover {
+          background-color: #B71C1C;
+        }
+        .cancel {
+          background-color: transparent;
+          color: #333;
+          margin-top: 1rem;
+        }
+      `}</style>
+    </div>
   );
 }
