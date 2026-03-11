@@ -7,9 +7,9 @@ import {
   Typography,
   TextField,
   Button,
-  // Grid,  <-- Commented out temporarily
   Paper,
 } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import Image from "next/image";
 
 type PaymentMethod = "mpesa" | "tigo" | "airtel" | "card";
@@ -18,7 +18,7 @@ const paymentImages: Record<PaymentMethod, string> = {
   mpesa: "/payment images/M-mpesa.png",
   tigo: "/payment images/YAS.png",
   airtel: "/payment images/airtel-money.jfif",
-  card: "/payment images/YAS.png", // you can replace with card image
+  card: "/payment images/YAS.png",
 };
 
 export default function DonatePage() {
@@ -37,7 +37,8 @@ export default function DonatePage() {
     alert(
       `Simulated Payment:\nAmount: ${amount} Tsh\nMethod: ${selectedMethod?.toUpperCase()}\nPhone: ${phone}`
     );
-    // Reset to initial
+
+    // Reset form
     setStep(1);
     setSelectedMethod(null);
     setPhone("");
@@ -48,70 +49,67 @@ export default function DonatePage() {
   return (
     <Container sx={{ py: 12 }}>
       <Paper sx={{ p: 6, maxWidth: 600, mx: "auto" }} elevation={3}>
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 4, textAlign: "center" }}>
+        <Typography
+          variant="h4"
+          sx={{ fontWeight: "bold", mb: 4, textAlign: "center" }}
+        >
           Donate to SCPSF
         </Typography>
 
-        {/* Step 1: Select Payment Method */}
+        {/* STEP 1: SELECT PAYMENT METHOD */}
         {step === 1 && (
           <>
             <Typography variant="h6" sx={{ mb: 3 }}>
               Select Payment Method
             </Typography>
 
-            {/* TODO: Fix MUI Grid typings; commenting out to allow Docker build */}
-            {/*
-            <Grid container spacing={2} justifyContent="center">
-              {(["mpesa", "tigo", "airtel", "card"] as PaymentMethod[]).map((method) => (
-                <Grid item key={method}>
-                  <Box
-                    onClick={() => handleSelectMethod(method)}
-                    sx={{
-                      cursor: "pointer",
-                      border: "2px solid #E21B1B",
-                      borderRadius: 2,
-                      p: 1,
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      width: 100,
-                      transition: "transform 0.2s",
-                      "&:hover": { transform: "scale(1.1)" },
-                    }}
-                  >
-                    <Image
-                      src={paymentImages[method]}
-                      alt={method}
-                      width={80}
-                      height={80}
-                      style={{ objectFit: "contain" }}
-                    />
-                    <Typography variant="body2" sx={{ mt: 1, fontWeight: "bold" }}>
-                      {method.toUpperCase()}
-                    </Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-            */}
+            <Grid container spacing={3} justifyContent="center">
+              {(["mpesa", "tigo", "airtel", "card"] as PaymentMethod[]).map(
+                (method) => (
+                  <Grid item xs={6} sm={3} key={method}>
+                    <Box
+                      onClick={() => handleSelectMethod(method)}
+                      sx={{
+                        cursor: "pointer",
+                        border: "2px solid #E21B1B",
+                        borderRadius: 2,
+                        p: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        transition: "transform 0.2s",
+                        "&:hover": { transform: "scale(1.05)" },
+                      }}
+                    >
+                      <Image
+                        src={paymentImages[method]}
+                        alt={method}
+                        width={70}
+                        height={70}
+                        style={{ objectFit: "contain" }}
+                      />
 
-            {/* Temporary fallback: simple list buttons */}
-            <Box sx={{ display: "flex", gap: 2, justifyContent: "center" }}>
-              {(["mpesa", "tigo", "airtel", "card"] as PaymentMethod[]).map((method) => (
-                <Button key={method} onClick={() => handleSelectMethod(method)} variant="outlined">
-                  {method.toUpperCase()}
-                </Button>
-              ))}
-            </Box>
+                      <Typography
+                        variant="body2"
+                        sx={{ mt: 1, fontWeight: "bold" }}
+                      >
+                        {method.toUpperCase()}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                )
+              )}
+            </Grid>
           </>
         )}
 
-        {/* Step 2: Enter Phone Number */}
+        {/* STEP 2: PHONE + AMOUNT */}
         {step === 2 && (
           <>
             <Typography variant="h6" sx={{ mb: 3 }}>
               Enter Phone Number for {selectedMethod?.toUpperCase()}
             </Typography>
+
             <TextField
               fullWidth
               label="Phone Number"
@@ -119,6 +117,7 @@ export default function DonatePage() {
               onChange={(e) => setPhone(e.target.value)}
               sx={{ mb: 3 }}
             />
+
             <TextField
               fullWidth
               label="Donation Amount (Tsh)"
@@ -127,10 +126,14 @@ export default function DonatePage() {
               onChange={(e) => setAmount(e.target.value)}
               sx={{ mb: 3 }}
             />
+
             <Button
               variant="contained"
               fullWidth
-              sx={{ backgroundColor: "#E21B1B", "&:hover": { backgroundColor: "#B71C1C" } }}
+              sx={{
+                backgroundColor: "#E21B1B",
+                "&:hover": { backgroundColor: "#B71C1C" },
+              }}
               onClick={() => setStep(3)}
             >
               Proceed to Payment
@@ -138,12 +141,13 @@ export default function DonatePage() {
           </>
         )}
 
-        {/* Step 3: Enter Password / Confirm */}
+        {/* STEP 3: CONFIRM PAYMENT */}
         {step === 3 && (
           <>
             <Typography variant="h6" sx={{ mb: 3 }}>
               Enter Payment PIN for {selectedMethod?.toUpperCase()}
             </Typography>
+
             <TextField
               fullWidth
               label="PIN"
@@ -152,10 +156,14 @@ export default function DonatePage() {
               onChange={(e) => setPassword(e.target.value)}
               sx={{ mb: 3 }}
             />
+
             <Button
               variant="contained"
               fullWidth
-              sx={{ backgroundColor: "#E21B1B", "&:hover": { backgroundColor: "#B71C1C" } }}
+              sx={{
+                backgroundColor: "#E21B1B",
+                "&:hover": { backgroundColor: "#B71C1C" },
+              }}
               onClick={handlePaymentSubmit}
             >
               Confirm Payment
@@ -163,6 +171,7 @@ export default function DonatePage() {
           </>
         )}
 
+        {/* CANCEL BUTTON */}
         <Box sx={{ mt: 3, textAlign: "center" }}>
           <Button
             color="inherit"
