@@ -19,7 +19,10 @@ export default function RootLayout({
       <body>
         <MuiThemeProvider>
           <SCPSFLoader>
-            {children}
+            {/* Main container with 60px left/right spacing */}
+            <div className="container-tight">
+              {children}
+            </div>
             <PageMinimap />
           </SCPSFLoader>
         </MuiThemeProvider>
