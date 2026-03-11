@@ -1,0 +1,352 @@
+/* ================================
+   GLOBAL
+================================ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f6f8;
+}
+
+a {
+  text-decoration: none;
+}
+
+section {
+  padding: 80px 0;
+}
+
+
+
+/* ================================
+   SCPSF PREMIUM LOADER
+================================ */
+
+.scpsf-loader {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg,#020617,#0f172a,#020617);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+
+/* LOADER CONTENT */
+
+.loader-box {
+  text-align: center;
+  color: white;
+  max-width: 600px;
+  animation: fadeIn 1s ease;
+  position: relative;
+  z-index: 2;
+}
+
+
+/* RISING SUN */
+
+.sun {
+  position: absolute;
+  bottom: -350px;
+
+  width: 340px;
+  height: 340px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    #fde047 0%,
+    #fb923c 35%,
+    #f97316 55%,
+    rgba(255,140,0,.7) 70%,
+    transparent 90%
+  );
+
+  box-shadow:
+  0 0 160px rgba(255,200,0,.9),
+  0 0 260px rgba(255,160,0,.7);
+
+  z-index: 1;
+
+  animation:
+  sunRise 2.4s ease-out forwards,
+  sunSettle 1.6s ease 2.4s forwards,
+  sunGlow 5s ease-in-out infinite;
+}
+
+
+/* SUN RISE */
+
+@keyframes sunRise {
+
+  0% {
+    transform: translateY(500px) scale(1.8);
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-40px) scale(1);
+  }
+
+}
+
+
+/* SUN SETTLES INTO LOGO */
+
+@keyframes sunSettle {
+
+  0% {
+    transform: translateY(-40px) scale(1);
+  }
+
+  100% {
+    transform: translateY(0) scale(.35);
+  }
+
+}
+
+
+/* SUN GLOW */
+
+@keyframes sunGlow {
+
+  0%,100%{
+    box-shadow:
+    0 0 160px rgba(255,200,0,.9),
+    0 0 260px rgba(255,160,0,.7);
+  }
+
+  50%{
+    box-shadow:
+    0 0 200px rgba(255,210,0,1),
+    0 0 320px rgba(255,170,0,.9);
+  }
+
+}
+
+
+
+/* ================================
+   LOADER TEXT
+================================ */
+
+.logo-pulse {
+  font-size: 48px;
+  font-weight: 700;
+  color: #38bdf8;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+.loader-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.loader-subtitle {
+  margin-top: 10px;
+  opacity: 0.7;
+}
+
+
+
+/* ================================
+   PROGRESS BAR
+================================ */
+
+.progress-bar {
+  margin-top: 30px;
+  width: 320px;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#38bdf8,#06b6d4);
+  transition: width 0.3s;
+}
+
+
+
+/* ================================
+   NAVBAR WATER EFFECT
+================================ */
+
+/* container */
+
+.water {
+  position: absolute;
+  left: 0;
+  bottom: -100%;
+  width: 100%;
+  height: 200%;
+  overflow: hidden;
+
+  background: linear-gradient(
+    180deg,
+    rgba(56,189,248,.95),
+    rgba(6,182,212,.95),
+    rgba(59,130,246,.95)
+  );
+
+  z-index: 1;
+}
+
+
+/* initial fill */
+
+.waterStart{
+  animation:
+  waterFill 2s ease-out forwards,
+  waterWave 4s ease-in-out 2s infinite;
+}
+
+
+/* water fill */
+
+@keyframes waterFill {
+
+  0% { bottom:-100%; }
+
+  100% { bottom:0%; }
+
+}
+
+
+/* wave movement */
+
+@keyframes waterWave {
+
+  0% { transform: translateY(0); }
+
+  50% { transform: translateY(-8%); }
+
+  100% { transform: translateY(0); }
+
+}
+
+
+
+/* surface wave */
+
+.water::before {
+
+  content:"";
+
+  position:absolute;
+  top:-8px;
+  left:-50%;
+
+  width:200%;
+  height:16px;
+
+  background:rgba(255,255,255,.35);
+
+  border-radius:50%;
+
+  animation:waveMove 2s linear infinite;
+
+}
+
+
+/* bubble particles */
+
+.water::after {
+
+  content:"";
+
+  position:absolute;
+  bottom:-20px;
+  left:50%;
+
+  width:6px;
+  height:6px;
+
+  background:white;
+  border-radius:50%;
+
+  opacity:.7;
+
+  box-shadow:
+  -12px -30px 0 1px rgba(255,255,255,.5),
+  10px -60px 0 1px rgba(255,255,255,.6),
+  -8px -90px 0 1px rgba(255,255,255,.4),
+  14px -120px 0 1px rgba(255,255,255,.5);
+
+  animation:bubbleRise 4s linear infinite;
+
+}
+
+
+/* wave movement */
+
+@keyframes waveMove {
+
+  0% { transform:translateX(0) }
+
+  100% { transform:translateX(-50%) }
+
+}
+
+
+/* bubbles rising */
+
+@keyframes bubbleRise {
+
+  0%{
+    transform:translateY(0);
+    opacity:.6;
+  }
+
+  100%{
+    transform:translateY(-140px);
+    opacity:0;
+  }
+
+}
+
+
+
+/* ================================
+   GENERAL ANIMATIONS
+================================ */
+
+@keyframes pulse {
+
+  0% { transform: scale(1); opacity:0.7 }
+
+  50% { transform: scale(1.1); opacity:1 }
+
+  100% { transform: scale(1); opacity:0.7 }
+
+}
+
+
+@keyframes fadeIn {
+
+  from {
+    opacity:0;
+    transform:translateY(20px)
+  }
+
+  to {
+    opacity:1;
+    transform:translateY(0)
+  }
+
+}
