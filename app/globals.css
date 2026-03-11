@@ -7,17 +7,19 @@ html, body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-color: #f4f6f8;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 section {
-  padding: 80px 0;
+  padding: 8vh 5vw;
+  box-sizing: border-box;
 }
-
-
 
 /* ================================
    SCPSF PREMIUM LOADER
@@ -34,142 +36,80 @@ section {
   z-index: 9999;
 }
 
-
-/* LOADER CONTENT */
-
 .loader-box {
   text-align: center;
   color: white;
-  max-width: 600px;
+  max-width: 90%;
   animation: fadeIn 1s ease;
   position: relative;
   z-index: 2;
 }
 
-
-/* RISING SUN */
-
 .sun {
   position: absolute;
-  bottom: -350px;
-
-  width: 340px;
-  height: 340px;
-
+  bottom: -35vh;
+  width: 34vw;
+  max-width: 340px;
+  height: 34vw;
+  max-height: 340px;
   border-radius: 50%;
-
-  background: radial-gradient(
-    circle,
-    #fde047 0%,
-    #fb923c 35%,
-    #f97316 55%,
-    rgba(255,140,0,.7) 70%,
-    transparent 90%
-  );
-
-  box-shadow:
-  0 0 160px rgba(255,200,0,.9),
-  0 0 260px rgba(255,160,0,.7);
-
+  background: radial-gradient(circle, #fde047 0%, #fb923c 35%, #f97316 55%, rgba(255,140,0,.7) 70%, transparent 90%);
+  box-shadow: 0 0 16vw rgba(255,200,0,.9), 0 0 26vw rgba(255,160,0,.7);
   z-index: 1;
-
-  animation:
-  sunRise 2.4s ease-out forwards,
-  sunSettle 1.6s ease 2.4s forwards,
-  sunGlow 5s ease-in-out infinite;
+  animation: sunRise 2.4s ease-out forwards, sunSettle 1.6s ease 2.4s forwards, sunGlow 5s ease-in-out infinite;
 }
-
 
 /* SUN RISE */
-
 @keyframes sunRise {
-
-  0% {
-    transform: translateY(500px) scale(1.8);
-    opacity: 0;
-  }
-
-  60% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(-40px) scale(1);
-  }
-
+  0% { transform: translateY(50vh) scale(1.8); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translateY(-4vh) scale(1); }
 }
-
 
 /* SUN SETTLES INTO LOGO */
-
 @keyframes sunSettle {
-
-  0% {
-    transform: translateY(-40px) scale(1);
-  }
-
-  100% {
-    transform: translateY(0) scale(.35);
-  }
-
+  0% { transform: translateY(-4vh) scale(1); }
+  100% { transform: translateY(0) scale(0.35); }
 }
-
 
 /* SUN GLOW */
-
 @keyframes sunGlow {
-
-  0%,100%{
-    box-shadow:
-    0 0 160px rgba(255,200,0,.9),
-    0 0 260px rgba(255,160,0,.7);
-  }
-
-  50%{
-    box-shadow:
-    0 0 200px rgba(255,210,0,1),
-    0 0 320px rgba(255,170,0,.9);
-  }
-
+  0%,100% { box-shadow: 0 0 16vw rgba(255,200,0,.9), 0 0 26vw rgba(255,160,0,.7); }
+  50% { box-shadow: 0 0 20vw rgba(255,210,0,1), 0 0 32vw rgba(255,170,0,.9); }
 }
 
-
-
-/* ================================
-   LOADER TEXT
-================================ */
-
 .logo-pulse {
-  font-size: 48px;
+  font-size: 4vw;
+  max-font-size: 48px;
   font-weight: 700;
   color: #38bdf8;
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
   animation: pulse 2s infinite;
 }
 
 .loader-title {
-  font-size: 24px;
+  font-size: 2vw;
+  max-font-size: 24px;
   font-weight: 600;
   line-height: 1.4;
 }
 
 .loader-subtitle {
-  margin-top: 10px;
+  margin-top: 1vh;
   opacity: 0.7;
+  font-size: 1.2vw;
 }
-
-
 
 /* ================================
    PROGRESS BAR
 ================================ */
 
 .progress-bar {
-  margin-top: 30px;
-  width: 320px;
-  height: 6px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 20px;
+  margin-top: 3vh;
+  width: 80%;
+  max-width: 320px;
+  height: 0.6vh;
+  border-radius: 50px;
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
@@ -181,13 +121,9 @@ section {
   transition: width 0.3s;
 }
 
-
-
 /* ================================
    NAVBAR WATER EFFECT
 ================================ */
-
-/* container */
 
 .water {
   position: absolute;
@@ -196,157 +132,89 @@ section {
   width: 100%;
   height: 200%;
   overflow: hidden;
-
-  background: linear-gradient(
-    180deg,
-    rgba(56,189,248,.95),
-    rgba(6,182,212,.95),
-    rgba(59,130,246,.95)
-  );
-
+  background: linear-gradient(180deg, rgba(56,189,248,.95), rgba(6,182,212,.95), rgba(59,130,246,.95));
   z-index: 1;
 }
 
-
-/* initial fill */
-
-.waterStart{
-  animation:
-  waterFill 2s ease-out forwards,
-  waterWave 4s ease-in-out 2s infinite;
+.waterStart {
+  animation: waterFill 2s ease-out forwards, waterWave 4s ease-in-out 2s infinite;
 }
 
-
-/* water fill */
-
-@keyframes waterFill {
-
-  0% { bottom:-100%; }
-
-  100% { bottom:0%; }
-
-}
-
-
-/* wave movement */
-
-@keyframes waterWave {
-
-  0% { transform: translateY(0); }
-
-  50% { transform: translateY(-8%); }
-
-  100% { transform: translateY(0); }
-
-}
-
-
-
-/* surface wave */
+@keyframes waterFill { 0% { bottom:-100%; } 100% { bottom:0%; } }
+@keyframes waterWave { 0% { transform: translateY(0); } 50% { transform: translateY(-8%); } 100% { transform: translateY(0); } }
 
 .water::before {
-
   content:"";
-
   position:absolute;
-  top:-8px;
+  top:-0.8vh;
   left:-50%;
-
   width:200%;
-  height:16px;
-
+  height:1.6vh;
   background:rgba(255,255,255,.35);
-
   border-radius:50%;
-
   animation:waveMove 2s linear infinite;
-
 }
-
-
-/* bubble particles */
 
 .water::after {
-
   content:"";
-
   position:absolute;
-  bottom:-20px;
+  bottom:-2vh;
   left:50%;
-
-  width:6px;
-  height:6px;
-
+  width:0.6vh;
+  height:0.6vh;
   background:white;
   border-radius:50%;
-
   opacity:.7;
-
   box-shadow:
-  -12px -30px 0 1px rgba(255,255,255,.5),
-  10px -60px 0 1px rgba(255,255,255,.6),
-  -8px -90px 0 1px rgba(255,255,255,.4),
-  14px -120px 0 1px rgba(255,255,255,.5);
-
+    -1.2vw -3vw 0 0.1vw rgba(255,255,255,.5),
+    1vw -6vw 0 0.1vw rgba(255,255,255,.6),
+    -0.8vw -9vw 0 0.1vw rgba(255,255,255,.4),
+    1.4vw -12vw 0 0.1vw rgba(255,255,255,.5);
   animation:bubbleRise 4s linear infinite;
-
 }
 
-
-/* wave movement */
-
-@keyframes waveMove {
-
-  0% { transform:translateX(0) }
-
-  100% { transform:translateX(-50%) }
-
-}
-
-
-/* bubbles rising */
-
-@keyframes bubbleRise {
-
-  0%{
-    transform:translateY(0);
-    opacity:.6;
-  }
-
-  100%{
-    transform:translateY(-140px);
-    opacity:0;
-  }
-
-}
-
-
+@keyframes waveMove { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+@keyframes bubbleRise { 0%{ transform:translateY(0); opacity:.6; } 100%{ transform:translateY(-14vh); opacity:0; } }
 
 /* ================================
    GENERAL ANIMATIONS
 ================================ */
 
-@keyframes pulse {
+@keyframes pulse { 0% { transform: scale(1); opacity:0.7 } 50% { transform: scale(1.1); opacity:1 } 100% { transform: scale(1); opacity:0.7 } }
+@keyframes fadeIn { from { opacity:0; transform:translateY(2vh) } to { opacity:1; transform:translateY(0) } }
 
-  0% { transform: scale(1); opacity:0.7 }
+/* ================================
+   RESPONSIVE MEDIA QUERIES
+================================ */
 
-  50% { transform: scale(1.1); opacity:1 }
-
-  100% { transform: scale(1); opacity:0.7 }
-
+/* Extra small devices (portrait phones, <576px) */
+@media (max-width: 575px) {
+  .loader-title { font-size: 3.5vw; }
+  .loader-subtitle { font-size: 3vw; }
+  .logo-pulse { font-size: 6vw; }
+  section { padding: 6vh 4vw; }
 }
 
+/* Small devices (landscape phones, ≥576px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .loader-title { font-size: 3vw; }
+  .loader-subtitle { font-size: 2.5vw; }
+  .logo-pulse { font-size: 5vw; }
+  section { padding: 6vh 5vw; }
+}
 
-@keyframes fadeIn {
+/* Medium devices (tablets, ≥768px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .loader-title { font-size: 2.5vw; }
+  .loader-subtitle { font-size: 2vw; }
+  .logo-pulse { font-size: 4vw; }
+  section { padding: 7vh 5vw; }
+}
 
-  from {
-    opacity:0;
-    transform:translateY(20px)
-  }
-
-  to {
-    opacity:1;
-    transform:translateY(0)
-  }
-
+/* Large devices (desktops, ≥992px) */
+@media (min-width: 992px) {
+  .loader-title { font-size: 2vw; }
+  .loader-subtitle { font-size: 1.5vw; }
+  .logo-pulse { font-size: 3vw; }
+  section { padding: 8vh 5vw; }
 }
