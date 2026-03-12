@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import ContactSection from "@/components/ContactSection";
 import { useState, useEffect } from "react";
 
-/* TYPEWRITER COMPONENT (NO SOUND) */
+/* TYPEWRITER COMPONENT (FIXED) */
 function TypewriterHeader({
   text,
   speed = 100,
@@ -28,7 +28,8 @@ function TypewriterHeader({
       index = 0;
 
       typingInterval = setInterval(() => {
-        setDisplayedText((prev) => prev + text.charAt(index));
+        // Fix: slice the string properly to handle Unicode
+        setDisplayedText(text.slice(0, index + 1));
         index++;
 
         if (index >= text.length) {
@@ -50,35 +51,35 @@ function TypewriterHeader({
   }, [text, speed, delay]);
 
   return (
-   <Typography
-  variant="h5" // smaller size
-  sx={{
-    fontWeight: 500, // less bold
-    letterSpacing: 0.5, // tighter spacing
-    textShadow: "1px 1px 4px rgba(0,0,0,0.2)", // lighter shadow
-    fontFamily: "'Roboto Mono', monospace", // cleaner mono font
-    whiteSpace: "pre",
-    lineHeight: 1.3, // more compact
-    fontSize: { xs: "1.5rem", md: "2rem" }, // responsive size
-  }}
->
-  {displayedText}
-  <span className="cursor">|</span>
+    <Typography
+      variant="h5"
+      sx={{
+        fontWeight: 500,
+        letterSpacing: 0.5,
+        textShadow: "1px 1px 4px rgba(0,0,0,0.2)",
+        fontFamily: "'Roboto Mono', monospace",
+        whiteSpace: "pre",
+        lineHeight: 1.3,
+        fontSize: { xs: "1.5rem", md: "2rem" },
+      }}
+    >
+      {displayedText}
+      <span className="cursor">|</span>
 
-  <style jsx>{`
-    .cursor {
-      display: inline-block;
-      width: 1ch;
-      animation: blink 1s step-start infinite;
-    }
+      <style jsx>{`
+        .cursor {
+          display: inline-block;
+          width: 1ch;
+          animation: blink 1s step-start infinite;
+        }
 
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-  `}</style>
-</Typography>
+        @keyframes blink {
+          50% {
+            opacity: 0;
+          }
+        }
+      `}</style>
+    </Typography>
   );
 }
 
