@@ -2,161 +2,384 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { AppBar, Toolbar, Button, Box } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Box,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  const pathname = usePathname();
-  const [lawyerMenuOpen, setLawyerMenuOpen] = useState(false);
-  const [waveReady, setWaveReady] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setWaveReady(true), 4200);
-    return () => clearTimeout(timer);
-  }, []);
+const pathname = usePathname();
+const [mobileOpen, setMobileOpen] = useState(false);
+const [waveReady, setWaveReady] = useState(false);
 
-  const title = "(SCPSF)";
-  const navLinks = [
-    { label: "Home", href: "/" },
-    { label: "Lawyers", href: "/lawyers", dropdown: [] },
-    { label: "About Us", href: "/about-us" },
-    { label: "Donate", href: "/donate" },
-    { label: "Contact Us", href: "/contact" },
-  ];
+useEffect(() => {
+  const timer = setTimeout(() => {
+    setWaveReady(true);
+  }, 4200);
 
-  return (
-    <AppBar position="sticky" className="navbarAppBar">
-      <Toolbar className="toolbar">
-        {/* LEFT SIDE: Logo + Title */}
-        <Box className="leftSide">
-          <Link href="/" className="logoContainer">
-            <div className="logoWrapper">
-              <Image
-                src="/logo/logo.jpg"
-                alt="SCPSF Logo"
-                width={68}
-                height={68}
-                className="logoGlow logoBorder"
-              />
-            </div>
-          </Link>
-          <h2 className={`siteTitle ${waveReady ? "wave" : ""}`}>{title}</h2>
-        </Box>
+  return () => clearTimeout(timer);
+}, []);
 
-        {/* NAVIGATION LINKS */}
-        <ul className="nav">
-          {navLinks.map((link, idx) => (
-            <li key={idx}>
-              <Link href={link.href} className={pathname === link.href ? "activeLink" : ""}>
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Toolbar>
+const toggleDrawer = () => {
+  setMobileOpen(!mobileOpen);
+};
 
-      {/* INLINE STYLE */}
-      <style jsx>{`
-        .navbarAppBar {
-          background: linear-gradient(135deg,#020617,#0f172a,#020617);
-          backdrop-filter: blur(10px);
-          border-bottom: 1px solid rgba(56,189,248,0.2);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        }
+const title = "SECOND CHANCE PRISONERS' SUPPORT FOUNDATION (SCPSF)";
 
-        .toolbar {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0.5rem 2rem;
-        }
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Contact Us", href: "/contact" },
+  { label: "Donate", href: "/donate" }
+];
 
-        .leftSide {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-        }
+return (
 
-        .logoBorder {
-          border-radius: 50%;
-          border: 2px solid #000;
-          object-fit: cover;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+<AppBar
+position="sticky"
+sx={{
+background: "linear-gradient(135deg,#020617,#0f172a,#020617)",
+backdropFilter: "blur(16px)",
+borderBottom: "1px solid rgba(56,189,248,0.25)",
+boxShadow: "0 20px 60px rgba(0,0,0,0.8)",
+paddingBottom: "16px",
+paddingTop: "6px",
+position: "relative",
+overflow: "hidden"
+}}
+>
 
-        .logoBorder:hover {
-          transform: scale(1.1);
-          box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
+<Box className="navbar-loader-line"/>
+<Box className="navbarLightSweep"/>
 
-        .siteTitle {
-          color: #38bdf8;
-          font-size: 1rem;
-          font-weight: 800;
-          letter-spacing: 1px;
-        }
+<Toolbar
+sx={{
+display: "flex",
+justifyContent: "space-between",
+alignItems: "center",
+minHeight: "135px"
+}}
+>
 
-        .wave {
-          animation: float 4s ease-in-out infinite;
-        }
+{/* LEFT SIDE */}
 
-        @keyframes float {
-          0% { transform: translateY(0); }
-          50% { transform: translateY(-3px); }
-          100% { transform: translateY(0); }
-        }
+<Box sx={{ display: "flex", alignItems: "center" }}>
 
-        .nav {
-          display: flex;
-          gap: 1rem;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
+<Link href="/" className="logoContainer">
 
-        .nav li a {
-          display: block;
-          padding: 0.75rem 1.25rem;
-          font-weight: 600;
-          color: #fff;
-          text-decoration: none;
-          border-radius: 6px;
-          transition: background 0.3s, color 0.3s, transform 0.2s;
-        }
+<div className="logoWrapper">
 
-        .nav li a:hover {
-          background: #38bdf8;
-          color: #020617;
-          transform: translateY(-2px);
-        }
+<Image
+src="/logo/logo.jpg"
+alt="SCPSF Logo"
+width={82}
+height={82}
+className="logoGlow"
+/>
 
-        .activeLink {
-          color: #38bdf8;
-          font-weight: 700;
-        }
+<span className="logoScan"></span>
 
-        /* MOBILE */
-        @media (max-width: 768px) {
-          .toolbar {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.75rem;
-          }
-          .nav {
-            flex-direction: column;
-            width: 100%;
-          }
-          .nav li a {
-            width: 100%;
-            text-align: center;
-          }
-          .siteTitle {
-            font-size: 0.9rem;
-          }
-        }
-      `}</style>
-    </AppBar>
-  );
+</div>
+
+</Link>
+
+<div className={`waveTitle ${waveReady ? "startWave" : ""}`}>
+<h2>{title}</h2>
+<h2>{title}</h2>
+</div>
+
+</Box>
+
+{/* DESKTOP MENU */}
+
+<Box
+sx={{
+display: { xs: "none", md: "flex" },
+gap: 3,
+alignItems: "center"
+}}
+>
+
+{navLinks.map((link, idx) => (
+
+<Button
+key={idx}
+component={Link}
+href={link.href}
+className={link.label === "Donate" ? "donateButton" : "navButton"}
+sx={{
+color: pathname === link.href ? "#38bdf8" : "#fff",
+fontWeight: pathname === link.href ? "bold" : "normal",
+textDecoration: "none"
+}}
+>
+
+{link.label}
+
+{pathname === link.href && link.label !== "Donate" && (
+<span className="activeIndicator"></span>
+)}
+
+</Button>
+
+))}
+
+</Box>
+
+{/* MOBILE MENU BUTTON */}
+
+<IconButton
+color="inherit"
+sx={{ display: { md: "none" } }}
+onClick={toggleDrawer}
+>
+
+<MenuIcon/>
+
+</IconButton>
+
+</Toolbar>
+
+{/* MOBILE DRAWER */}
+
+<Drawer
+anchor="right"
+open={mobileOpen}
+onClose={toggleDrawer}
+>
+
+<Box
+sx={{
+width: 250,
+background: "#020617",
+height: "100%"
+}}
+>
+
+<List>
+
+{navLinks.map((link, idx) => (
+
+<ListItem key={idx} disablePadding>
+
+<ListItemButton
+component={Link}
+href={link.href}
+onClick={toggleDrawer}
+>
+
+<ListItemText
+primary={link.label}
+sx={{
+color: pathname === link.href ? "#38bdf8" : "#fff"
+}}
+/>
+
+</ListItemButton>
+
+</ListItem>
+
+))}
+
+</List>
+
+</Box>
+
+</Drawer>
+
+<style jsx>{`
+
+.navbar-loader-line{
+height:3px;
+background:linear-gradient(
+90deg,
+transparent,
+#38bdf8,
+#06b6d4,
+#38bdf8,
+transparent
+);
+background-size:300% 100%;
+animation:loaderMove 4s linear infinite;
+}
+
+@keyframes loaderMove{
+0%{background-position:-300px;}
+100%{background-position:300px;}
+}
+
+.navbarLightSweep{
+position:absolute;
+top:0;
+left:-50%;
+width:50%;
+height:100%;
+background:linear-gradient(
+120deg,
+transparent,
+rgba(56,189,248,0.25),
+transparent
+);
+transform:skewX(-25deg);
+animation:navSweep 8s linear infinite;
+pointer-events:none;
+}
+
+@keyframes navSweep{
+0%{left:-50%;}
+100%{left:120%;}
+}
+
+.navButton{
+position:relative;
+font-size:1rem;
+letter-spacing:.6px;
+padding:12px 20px;
+transition:all .3s ease;
+}
+
+.navButton:hover{
+color:#38bdf8;
+text-shadow:0 0 10px #38bdf8;
+}
+
+.activeIndicator{
+position:absolute;
+bottom:-6px;
+left:0;
+width:100%;
+height:2px;
+background:#38bdf8;
+box-shadow:0 0 10px #38bdf8;
+}
+
+.donateButton{
+background:linear-gradient(135deg,#06b6d4,#38bdf8);
+color:#021018;
+font-weight:700;
+padding:10px 22px;
+border-radius:6px;
+box-shadow:0 0 20px rgba(56,189,248,0.6);
+transition:all .3s ease;
+}
+
+.donateButton:hover{
+transform:translateY(-2px);
+box-shadow:0 0 35px rgba(56,189,248,0.9);
+}
+
+.logoContainer{
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+position:relative;
+}
+
+.logoWrapper{
+position:relative;
+border-radius:100%;
+overflow:hidden;
+}
+
+.logoGlow{
+width:82px;
+height:82px;
+border-radius:100%;
+object-fit:cover;
+box-shadow:0 0 18px #38bdf8,0 0 45px rgba(56,189,248,0.6);
+animation:logoFloat 4s ease-in-out infinite,logoPulse 3s ease-in-out infinite;
+}
+
+.logoScan{
+position:absolute;
+top:-120%;
+left:-50%;
+width:200%;
+height:250%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);
+transform:rotate(25deg);
+animation:scanLogo 4s linear infinite;
+pointer-events:none;
+}
+
+@keyframes scanLogo{
+0%{top:-120%;}
+100%{top:120%;}
+}
+
+@keyframes logoFloat{
+0%{transform:translateY(0);}
+50%{transform:translateY(-5px);}
+100%{transform:translateY(0);}
+}
+
+@keyframes logoPulse{
+0%{box-shadow:0 0 15px #38bdf8,0 0 40px rgba(56,189,248,.5);}
+50%{box-shadow:0 0 30px #38bdf8,0 0 70px rgba(56,189,248,.9);}
+100%{box-shadow:0 0 15px #38bdf8,0 0 40px rgba(56,189,248,.5);}
+}
+
+.waveTitle{
+position:relative;
+display:flex;
+align-items:center;
+justify-content:flex-start;
+margin-left:45px;
+}
+
+.waveTitle h2{
+position:absolute;
+font-size:1rem;
+font-weight:800;
+letter-spacing:1.5px;
+white-space:nowrap;
+}
+
+.waveTitle h2:nth-child(1){
+color:transparent;
+-webkit-text-stroke:1px rgba(255,255,255,0.9);
+}
+
+.waveTitle h2:nth-child(2){
+color:#38bdf8;
+clip-path:polygon(
+0 42%,13% 48%,26% 55%,41% 64%,56% 65%,69% 58%,84% 45%,100% 38%,100% 100%,0% 100%
+);
+}
+
+.startWave h2:nth-child(2){
+animation:wave 4s ease-in-out infinite;
+}
+
+@keyframes wave{
+0%,100%{
+clip-path:polygon(
+0 42%,13% 48%,26% 55%,41% 64%,56% 65%,69% 58%,84% 45%,100% 38%,100% 100%,0% 100%
+);
+}
+50%{
+clip-path:polygon(
+0 63%,14% 57%,25% 50%,40% 42%,56% 40%,71% 44%,84% 50%,100% 60%,100% 100%,0% 100%
+);
+}
+}
+
+`}</style>
+
+</AppBar>
+
+);
 }
