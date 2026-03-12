@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import "@/styles/globals.css"; // make sure this path points to your global.css
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -12,14 +13,11 @@ export default function Navbar() {
   const [waveReady, setWaveReady] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setWaveReady(true);
-    }, 4200);
+    const timer = setTimeout(() => setWaveReady(true), 4200);
     return () => clearTimeout(timer);
   }, []);
 
   const title = "(SCPSF)";
-
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Lawyers", href: "/lawyers", dropdown: [] },
@@ -31,13 +29,13 @@ export default function Navbar() {
   return (
     <AppBar
       position="sticky"
+      className="navbarAppBar"
       sx={{
         background: "linear-gradient(135deg,#020617,#0f172a,#020617)",
         backdropFilter: "blur(10px)",
         borderBottom: "1px solid rgba(56,189,248,0.2)",
         boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
       }}
-      className="navbarAppBar"
     >
       <Box className="navbar-loader-line" />
 
@@ -57,124 +55,21 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* SINGLE TITLE */}
+          {/* TITLE */}
           <Box className="titleBox">
             <h2 className={`siteTitle ${waveReady ? "wave" : ""}`}>{title}</h2>
           </Box>
         </Box>
 
         {/* NAVIGATION */}
-        <Box className="navLinks">
+        <ul className="nav">
           {navLinks.map((link, idx) => (
-            <Box
-              key={idx}
-              className="navItem"
-              onMouseEnter={() => link.dropdown && setLawyerMenuOpen(true)}
-              onMouseLeave={() => link.dropdown && setLawyerMenuOpen(false)}
-            >
-              <Button
-                component={Link}
-                href={link.href}
-                className="navButton"
-                sx={{
-                  color: pathname === link.href ? "#38bdf8" : "#fff",
-                  fontWeight: pathname === link.href ? "bold" : "normal",
-                }}
-              >
-                {link.label}
-              </Button>
-
-              {link.dropdown && lawyerMenuOpen && link.dropdown.length > 0 && (
-                <Box className="dropdownMenu">
-                  {link.dropdown.map((item, i) => (
-                    <Button
-                      key={i}
-                      component={Link}
-                      href={item.href}
-                      className="dropdownItem"
-                    >
-                      {item.label}
-                    </Button>
-                  ))}
-                </Box>
-              )}
-            </Box>
+            <li key={idx}>
+              <Link href={link.href}>{link.label}</Link>
+            </li>
           ))}
-        </Box>
+        </ul>
       </Toolbar>
-
-      <style jsx>{`
-        .toolbar {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          align-items: center;
-          gap: 10px;
-        }
-
-        .leftSide {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          flex-shrink: 1;
-        }
-
-        .titleBox {
-          display: flex;
-          align-items: center;
-        }
-
-        .siteTitle {
-          color: #38bdf8;
-          font-size: 1rem;
-          font-weight: 800;
-          letter-spacing: 1px;
-        }
-
-        .wave {
-          animation: float 4s ease-in-out infinite;
-        }
-
-        .navLinks {
-          display: flex;
-          gap: 10px;
-          flex-wrap: wrap;
-          justify-content: flex-end;
-          flex: 1;
-        }
-
-        .navItem {
-          position: relative;
-        }
-
-        @keyframes float {
-          0% { transform: translateY(0); }
-          50% { transform: translateY(-3px); }
-          100% { transform: translateY(0); }
-        }
-
-        /* MOBILE STYLING */
-        @media (max-width: 768px) {
-          .navLinks {
-            justify-content: flex-start;
-            width: 100%;
-            gap: 5px;
-            font-size: 0.9rem;
-          }
-
-          .siteTitle {
-            font-size: 0.9rem;
-          }
-
-          .leftSide {
-            flex-wrap: wrap;
-          }
-
-          .toolbar {
-            padding: 10px 0;
-          }
-        }
-      `}</style>
     </AppBar>
   );
 }
