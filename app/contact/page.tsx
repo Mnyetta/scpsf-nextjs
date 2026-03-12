@@ -1,16 +1,12 @@
 "use client";
 
-import { Box, Typography, TextField, Button, Grid, Paper } from "@mui/material";
+import { Box, Typography, Grid, Paper } from "@mui/material";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ContactSection from "@/components/ContactSection";
 import { useState, useEffect } from "react";
 
-/* TYPEWRITER SOUND */
-const typingSound =
-  "/type-writter-sound-effect/freesound_community-typewriter-machine-64191.mp3";
-
-/* TYPEWRITER COMPONENT */
+/* TYPEWRITER COMPONENT (WITHOUT SOUND) */
 function TypewriterHeader({
   text,
   speed = 100,
@@ -21,9 +17,6 @@ function TypewriterHeader({
   delay?: number;
 }) {
   const [displayedText, setDisplayedText] = useState("");
-  const [audio] = useState(
-    typeof Audio !== "undefined" ? new Audio(typingSound) : null
-  );
 
   useEffect(() => {
     let index = 0;
@@ -36,12 +29,6 @@ function TypewriterHeader({
 
       typingInterval = setInterval(() => {
         setDisplayedText((prev) => prev + text.charAt(index));
-
-        if (audio) {
-          audio.currentTime = 0;
-          audio.play().catch(() => {});
-        }
-
         index++;
 
         if (index >= text.length) {
@@ -60,7 +47,7 @@ function TypewriterHeader({
       clearInterval(typingInterval);
       clearTimeout(repeatTimeout);
     };
-  }, [text, speed, delay, audio]);
+  }, [text, speed, delay]);
 
   return (
     <Typography
@@ -127,10 +114,9 @@ export default function ContactPage() {
         />
       </Box>
 
-      {/* CONTACT FORM + INFO */}
+      {/* CONTACT INFO */}
       <Box sx={{ py: { xs: 6, md: 12 }, px: { xs: 3, md: 10 } }}>
         <Grid container spacing={8} alignItems="flex-start">
-          {/* CONTACT INFO */}
           <Grid item xs={12} md={5}>
             <Paper
               elevation={8}
@@ -142,10 +128,6 @@ export default function ContactPage() {
                 "&:hover": { transform: "translateY(-5px)" },
               }}
             >
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 3 }}>
-                Get in Touch
-              </Typography>
-
               <Typography sx={{ mb: 1 }}>
                 <strong>Address:</strong> P.O.BOX 8847 Moshi, Plot No.44,
                 Ndetembea Road, Karume Street, Longuo A ward
@@ -169,47 +151,6 @@ export default function ContactPage() {
                 automatic government legal aid. Contact us for support,
                 education, or reintegration programs.
               </Typography>
-            </Paper>
-          </Grid>
-
-          {/* CONTACT FORM */}
-          <Grid item xs={12} md={7}>
-            <Paper
-              elevation={8}
-              sx={{
-                p: { xs: 4, md: 6 },
-                borderRadius: 4,
-                background: "#fff",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                "&:hover": {
-                  transform: "translateY(-5px)",
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-                },
-              }}
-            >
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 4 }}>
-                Send Us a Message
-              </Typography>
-
-              <Box component="form">
-                <TextField fullWidth label="Full Name" sx={{ mb: 3 }} />
-                <TextField fullWidth label="Email Address" sx={{ mb: 3 }} />
-                <TextField fullWidth label="Subject" sx={{ mb: 3 }} />
-                <TextField fullWidth multiline rows={6} label="Message" sx={{ mb: 3 }} />
-
-                <Button
-                  variant="contained"
-                  sx={{
-                    background:
-                      "linear-gradient(90deg, #1e3a8a, #E21B1B)",
-                    px: 5,
-                    py: 1.5,
-                    fontWeight: 600,
-                  }}
-                >
-                  Send Message
-                </Button>
-              </Box>
             </Paper>
           </Grid>
         </Grid>
