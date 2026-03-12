@@ -1,12 +1,24 @@
+```tsx
 import "./globals.css";
 import MuiThemeProvider from "../components/ui/MuiThemeProvider";
 import SCPSFLoader from "../components/ui/SCPSFLoader";
 import PageMinimap from "../components/ui/PageMinimap";
 import "@/styles/auth.css";
 
+/* SEO Metadata for Google Search */
 export const metadata = {
-  title: "SECOND CHANCE PRISONERS' SUPPORT FOUNDATION (SCPSF)",
-  description: "Restoring Justice. Restoring Hope.",
+  title:
+    "Second Chance Prisoners Support Foundation (SCPSF) | Legal Aid & Reintegration",
+  description:
+    "Second Chance Prisoners Support Foundation (SCPSF) is a nonprofit organization providing legal aid, reintegration programs, and support for prisoners without automatic government legal assistance in Tanzania.",
+  keywords: [
+    "Second Chance Prisoners Support Foundation",
+    "SCPSF",
+    "SCPSF Tanzania",
+    "prisoner legal aid Tanzania",
+    "prisoner reintegration NGO",
+    "legal support for prisoners",
+  ],
 };
 
 export default function RootLayout({
@@ -30,3 +42,4 @@ export default function RootLayout({
     </html>
   );
 }
+```
