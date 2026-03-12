@@ -13,11 +13,15 @@ export default function Navbar() {
   const [waveReady, setWaveReady] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setWaveReady(true), 4200);
+    const timer = setTimeout(() => {
+      setWaveReady(true);
+    }, 4200);
+
     return () => clearTimeout(timer);
   }, []);
 
   const title = "(SCPSF)";
+
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Lawyers", href: "/lawyers", dropdown: [] },
@@ -29,7 +33,6 @@ export default function Navbar() {
   return (
     <AppBar
       position="sticky"
-      className="navbarAppBar"
       sx={{
         background: "linear-gradient(135deg,#020617,#0f172a,#020617)",
         backdropFilter: "blur(10px)",
@@ -39,9 +42,9 @@ export default function Navbar() {
     >
       <Box className="navbar-loader-line" />
 
-      <Toolbar className="toolbar">
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         {/* LEFT SIDE */}
-        <Box className="leftSide">
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Link href="/" className="logoContainer">
             <div className="logoWrapper">
               <Image
@@ -49,27 +52,76 @@ export default function Navbar() {
                 alt="SCPSF Logo"
                 width={68}
                 height={68}
-                className="logoGlow logoBorder"
+                className="logoGlow"
               />
               <span className="logoScan"></span>
             </div>
           </Link>
 
-          {/* TITLE */}
-          <Box className="titleBox">
+          {/* SINGLE TITLE */}
+          <Box sx={{ ml: 3 }}>
             <h2 className={`siteTitle ${waveReady ? "wave" : ""}`}>{title}</h2>
           </Box>
         </Box>
 
         {/* NAVIGATION */}
-        <ul className="nav">
+        <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
           {navLinks.map((link, idx) => (
-            <li key={idx}>
-              <Link href={link.href}>{link.label}</Link>
-            </li>
+            <Box
+              key={idx}
+              sx={{ position: "relative" }}
+              onMouseEnter={() => link.dropdown && setLawyerMenuOpen(true)}
+              onMouseLeave={() => link.dropdown && setLawyerMenuOpen(false)}
+            >
+              <Button
+                component={Link}
+                href={link.href}
+                className="navButton"
+                sx={{
+                  color: pathname === link.href ? "#38bdf8" : "#fff",
+                  fontWeight: pathname === link.href ? "bold" : "normal",
+                }}
+              >
+                {link.label}
+              </Button>
+
+              {link.dropdown && lawyerMenuOpen && link.dropdown.length > 0 && (
+                <Box className="dropdownMenu">
+                  {link.dropdown.map((item, i) => (
+                    <Button
+                      key={i}
+                      component={Link}
+                      href={item.href}
+                      className="dropdownItem"
+                    >
+                      {item.label}
+                    </Button>
+                  ))}
+                </Box>
+              )}
+            </Box>
           ))}
-        </ul>
+        </Box>
       </Toolbar>
+
+      <style jsx>{`
+        .siteTitle {
+          color: #38bdf8;
+          font-size: 1rem;
+          font-weight: 800;
+          letter-spacing: 1px;
+        }
+
+        .wave {
+          animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-3px); }
+          100% { transform: translateY(0); }
+        }
+      `}</style>
     </AppBar>
   );
 }
