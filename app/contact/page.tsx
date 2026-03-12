@@ -1,12 +1,12 @@
 "use client";
 
-import { Box, Typography, Grid, Paper } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ContactSection from "@/components/ContactSection";
 import { useState, useEffect } from "react";
 
-/* TYPEWRITER COMPONENT (WITHOUT SOUND) */
+/* TYPEWRITER COMPONENT (NO SOUND) */
 function TypewriterHeader({
   text,
   speed = 100,
@@ -114,49 +114,7 @@ export default function ContactPage() {
         />
       </Box>
 
-      {/* CONTACT INFO */}
-      <Box sx={{ py: { xs: 6, md: 12 }, px: { xs: 3, md: 10 } }}>
-        <Grid container spacing={8} alignItems="flex-start">
-          <Grid item xs={12} md={5}>
-            <Paper
-              elevation={8}
-              sx={{
-                p: { xs: 4, md: 6 },
-                borderRadius: 4,
-                background: "linear-gradient(145deg, #f6f8fb, #e3eaf2)",
-                transition: "transform 0.3s ease",
-                "&:hover": { transform: "translateY(-5px)" },
-              }}
-            >
-              <Typography sx={{ mb: 1 }}>
-                <strong>Address:</strong> P.O.BOX 8847 Moshi, Plot No.44,
-                Ndetembea Road, Karume Street, Longuo A ward
-              </Typography>
-
-              <Typography sx={{ mb: 1 }}>
-                <strong>Region:</strong> Northern Zone (Kilimanjaro, Tanga,
-                Arusha, Manyara)
-              </Typography>
-
-              <Typography sx={{ mb: 1 }}>
-                <strong>Phone:</strong> 0621 197454
-              </Typography>
-
-              <Typography sx={{ mb: 1 }}>
-                <strong>Email:</strong> marymaliga73@gmail.com
-              </Typography>
-
-              <Typography variant="body2" sx={{ mt: 3, color: "#555" }}>
-                SCPSF is a non-profit organization assisting prisoners without
-                automatic government legal aid. Contact us for support,
-                education, or reintegration programs.
-              </Typography>
-            </Paper>
-          </Grid>
-        </Grid>
-      </Box>
-
-      {/* MAP + EXTRA CONTACT INFO */}
+      {/* MAP + CONTACT LOCATION */}
       <ContactSection />
 
       {/* FOOTER */}
