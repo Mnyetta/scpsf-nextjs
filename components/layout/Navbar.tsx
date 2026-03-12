@@ -9,8 +9,6 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
   const pathname = usePathname();
   const [lawyerMenuOpen, setLawyerMenuOpen] = useState(false);
-
-  /* START WAVE AFTER LOADER */
   const [waveReady, setWaveReady] = useState(false);
 
   useEffect(() => {
@@ -25,18 +23,9 @@ export default function Navbar() {
 
   const navLinks = [
     { label: "Home", href: "/" },
-
-    {
-      label: "Lawyers",
-      href: "/lawyers",
-      dropdown: [],
-    },
-
+    { label: "Lawyers", href: "/lawyers", dropdown: [] },
     { label: "About Us", href: "/about-us" },
-
     { label: "Donate", href: "/donate" },
-
-    /* NEW CONTACT PAGE */
     { label: "Contact Us", href: "/contact" },
   ];
 
@@ -68,11 +57,10 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* WAVE TITLE */}
-          <div className={`waveTitle ${waveReady ? "startWave" : ""}`}>
-            <h2>{title}</h2>
-            <h2>{title}</h2>
-          </div>
+          {/* SINGLE TITLE */}
+          <Box sx={{ ml: 3 }}>
+            <h2 className={`siteTitle ${waveReady ? "wave" : ""}`}>{title}</h2>
+          </Box>
         </Box>
 
         {/* NAVIGATION */}
@@ -115,9 +103,23 @@ export default function Navbar() {
         </Box>
       </Toolbar>
 
-      {/* CSS remains unchanged */}
       <style jsx>{`
-      /* YOUR ORIGINAL CSS (UNCHANGED) */
+        .siteTitle {
+          color: #38bdf8;
+          font-size: 1rem;
+          font-weight: 800;
+          letter-spacing: 1px;
+        }
+
+        .wave {
+          animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-3px); }
+          100% { transform: translateY(0); }
+        }
       `}</style>
     </AppBar>
   );
