@@ -1,4 +1,3 @@
-```tsx
 import "./globals.css";
 import MuiThemeProvider from "../components/ui/MuiThemeProvider";
 import SCPSFLoader from "../components/ui/SCPSFLoader";
@@ -28,13 +27,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+        <meta name="description" content={metadata.description} />
+        <meta name="keywords" content={metadata.keywords.join(", ")} />
+        <title>{metadata.title}</title>
+      </head>
       <body>
         <MuiThemeProvider>
           <SCPSFLoader>
-            {/* Main container with 60px left/right spacing */}
-            <div className="container-tight">
-              {children}
-            </div>
+            {/* Main container with spacing */}
+            <div className="container-tight">{children}</div>
             <PageMinimap />
           </SCPSFLoader>
         </MuiThemeProvider>
@@ -42,4 +49,3 @@ export default function RootLayout({
     </html>
   );
 }
-```
