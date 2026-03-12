@@ -50,33 +50,35 @@ function TypewriterHeader({
   }, [text, speed, delay]);
 
   return (
-    <Typography
-      variant="h3"
-      sx={{
-        fontWeight: 800,
-        letterSpacing: 1,
-        textShadow: "2px 2px 8px rgba(0,0,0,0.3)",
-        fontFamily: "Courier New, monospace",
-        whiteSpace: "pre",
-      }}
-    >
-      {displayedText}
-      <span className="cursor">|</span>
+   <Typography
+  variant="h5" // smaller size
+  sx={{
+    fontWeight: 500, // less bold
+    letterSpacing: 0.5, // tighter spacing
+    textShadow: "1px 1px 4px rgba(0,0,0,0.2)", // lighter shadow
+    fontFamily: "'Roboto Mono', monospace", // cleaner mono font
+    whiteSpace: "pre",
+    lineHeight: 1.3, // more compact
+    fontSize: { xs: "1.5rem", md: "2rem" }, // responsive size
+  }}
+>
+  {displayedText}
+  <span className="cursor">|</span>
 
-      <style jsx>{`
-        .cursor {
-          display: inline-block;
-          width: 1ch;
-          animation: blink 1s step-start infinite;
-        }
+  <style jsx>{`
+    .cursor {
+      display: inline-block;
+      width: 1ch;
+      animation: blink 1s step-start infinite;
+    }
 
-        @keyframes blink {
-          50% {
-            opacity: 0;
-          }
-        }
-      `}</style>
-    </Typography>
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+  `}</style>
+</Typography>
   );
 }
 
