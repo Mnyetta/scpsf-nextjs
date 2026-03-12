@@ -21,7 +21,7 @@ export default function Navbar() {
     return () => clearTimeout(timer);
   }, []);
 
-  const title = "SECOND CHANCE PRISONERS' SUPPORT FOUNDATION (SCPSF)";
+  const title = " SCPSF";
 
   const navLinks = [
     { label: "Home", href: "/" },
