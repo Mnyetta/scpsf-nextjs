@@ -37,6 +37,7 @@ export default function Navbar() {
         borderBottom: "1px solid rgba(56,189,248,0.2)",
         boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
       }}
+      className="navbarAppBar"
     >
       <Box className="navbar-loader-line" />
 
@@ -50,7 +51,7 @@ export default function Navbar() {
                 alt="SCPSF Logo"
                 width={68}
                 height={68}
-                className="logoGlow"
+                className="logoGlow logoBorder"
               />
               <span className="logoScan"></span>
             </div>
@@ -102,7 +103,6 @@ export default function Navbar() {
         </Box>
       </Toolbar>
 
-      {/* RESPONSIVE CSS */}
       <style jsx>{`
         .toolbar {
           display: flex;
