@@ -5,7 +5,6 @@ import Image from "next/image";
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import "@/styles/globals.css"; // make sure this path points to your global.css
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -13,15 +12,11 @@ export default function Navbar() {
   const [waveReady, setWaveReady] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setWaveReady(true);
-    }, 4200);
-
+    const timer = setTimeout(() => setWaveReady(true), 4200);
     return () => clearTimeout(timer);
   }, []);
 
   const title = "(SCPSF)";
-
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Lawyers", href: "/lawyers", dropdown: [] },
@@ -31,20 +26,10 @@ export default function Navbar() {
   ];
 
   return (
-    <AppBar
-      position="sticky"
-      sx={{
-        background: "linear-gradient(135deg,#020617,#0f172a,#020617)",
-        backdropFilter: "blur(10px)",
-        borderBottom: "1px solid rgba(56,189,248,0.2)",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
-      }}
-    >
-      <Box className="navbar-loader-line" />
-
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        {/* LEFT SIDE */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+    <AppBar position="sticky" className="navbarAppBar">
+      <Toolbar className="toolbar">
+        {/* LEFT SIDE: Logo + Title */}
+        <Box className="leftSide">
           <Link href="/" className="logoContainer">
             <div className="logoWrapper">
               <Image
@@ -52,59 +37,60 @@ export default function Navbar() {
                 alt="SCPSF Logo"
                 width={68}
                 height={68}
-                className="logoGlow"
+                className="logoGlow logoBorder"
               />
-              <span className="logoScan"></span>
             </div>
           </Link>
-
-          {/* SINGLE TITLE */}
-          <Box sx={{ ml: 3 }}>
-            <h2 className={`siteTitle ${waveReady ? "wave" : ""}`}>{title}</h2>
-          </Box>
+          <h2 className={`siteTitle ${waveReady ? "wave" : ""}`}>{title}</h2>
         </Box>
 
-        {/* NAVIGATION */}
-        <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+        {/* NAVIGATION LINKS */}
+        <ul className="nav">
           {navLinks.map((link, idx) => (
-            <Box
-              key={idx}
-              sx={{ position: "relative" }}
-              onMouseEnter={() => link.dropdown && setLawyerMenuOpen(true)}
-              onMouseLeave={() => link.dropdown && setLawyerMenuOpen(false)}
-            >
-              <Button
-                component={Link}
-                href={link.href}
-                className="navButton"
-                sx={{
-                  color: pathname === link.href ? "#38bdf8" : "#fff",
-                  fontWeight: pathname === link.href ? "bold" : "normal",
-                }}
-              >
+            <li key={idx}>
+              <Link href={link.href} className={pathname === link.href ? "activeLink" : ""}>
                 {link.label}
-              </Button>
-
-              {link.dropdown && lawyerMenuOpen && link.dropdown.length > 0 && (
-                <Box className="dropdownMenu">
-                  {link.dropdown.map((item, i) => (
-                    <Button
-                      key={i}
-                      component={Link}
-                      href={item.href}
-                      className="dropdownItem"
-                    >
-                      {item.label}
-                    </Button>
-                  ))}
-                </Box>
-              )}
-            </Box>
+              </Link>
+            </li>
           ))}
-        </Box>
+        </ul>
       </Toolbar>
 
+      {/* INLINE STYLE */}
       <style jsx>{`
+        .navbarAppBar {
+          background: linear-gradient(135deg,#020617,#0f172a,#020617);
+          backdrop-filter: blur(10px);
+          border-bottom: 1px solid rgba(56,189,248,0.2);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .toolbar {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.5rem 2rem;
+        }
+
+        .leftSide {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .logoBorder {
+          border-radius: 50%;
+          border: 2px solid #000;
+          object-fit: cover;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .logoBorder:hover {
+          transform: scale(1.1);
+          box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
         .siteTitle {
           color: #38bdf8;
           font-size: 1rem;
@@ -120,6 +106,55 @@ export default function Navbar() {
           0% { transform: translateY(0); }
           50% { transform: translateY(-3px); }
           100% { transform: translateY(0); }
+        }
+
+        .nav {
+          display: flex;
+          gap: 1rem;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .nav li a {
+          display: block;
+          padding: 0.75rem 1.25rem;
+          font-weight: 600;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 6px;
+          transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .nav li a:hover {
+          background: #38bdf8;
+          color: #020617;
+          transform: translateY(-2px);
+        }
+
+        .activeLink {
+          color: #38bdf8;
+          font-weight: 700;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+          .toolbar {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+          }
+          .nav {
+            flex-direction: column;
+            width: 100%;
+          }
+          .nav li a {
+            width: 100%;
+            text-align: center;
+          }
+          .siteTitle {
+            font-size: 0.9rem;
+          }
         }
       `}</style>
     </AppBar>
