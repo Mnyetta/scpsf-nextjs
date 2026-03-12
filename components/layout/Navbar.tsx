@@ -3,16 +3,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  AppBar,
-  Toolbar,
-  Button,
-  Box,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText
+AppBar,
+Toolbar,
+Button,
+Box,
+IconButton,
+Drawer,
+List,
+ListItem,
+ListItemButton,
+ListItemText
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { usePathname } from "next/navigation";
@@ -25,24 +25,28 @@ const [mobileOpen, setMobileOpen] = useState(false);
 const [waveReady, setWaveReady] = useState(false);
 
 useEffect(() => {
-  const timer = setTimeout(() => {
-    setWaveReady(true);
-  }, 4200);
+const timer = setTimeout(() => {
+setWaveReady(true);
+}, 4200);
 
-  return () => clearTimeout(timer);
+return () => clearTimeout(timer);
+
 }, []);
 
 const toggleDrawer = () => {
-  setMobileOpen(!mobileOpen);
+setMobileOpen(!mobileOpen);
 };
 
-const title = "SECOND CHANCE PRISONERS' SUPPORT FOUNDATION (SCPSF)";
+const fullTitle =
+"SECOND CHANCE PRISONERS' SUPPORT FOUNDATION (SCPSF)";
+
+const shortTitle = "SCPSF";
 
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us" },
-  { label: "Contact Us", href: "/contact" },
-  { label: "Donate", href: "/donate" }
+{ label: "Home", href: "/" },
+{ label: "About Us", href: "/about-us" },
+{ label: "Contact Us", href: "/contact" },
+{ label: "Donate", href: "/donate" }
 ];
 
 return (
@@ -96,8 +100,17 @@ className="logoGlow"
 </Link>
 
 <div className={`waveTitle ${waveReady ? "startWave" : ""}`}>
-<h2>{title}</h2>
-<h2>{title}</h2>
+
+{/* DESKTOP TITLE */}
+
+<h2 className="desktopTitle">{fullTitle}</h2>
+<h2 className="desktopTitle">{fullTitle}</h2>
+
+{/* MOBILE TITLE */}
+
+<h2 className="mobileTitle">{shortTitle}</h2>
+<h2 className="mobileTitle">{shortTitle}</h2>
+
 </div>
 
 </Box>
@@ -138,7 +151,7 @@ textDecoration: "none"
 
 </Box>
 
-{/* MOBILE MENU BUTTON */}
+{/* MOBILE MENU */}
 
 <IconButton
 color="inherit"
@@ -201,6 +214,8 @@ color: pathname === link.href ? "#38bdf8" : "#fff"
 
 <style jsx>{`
 
+/* Loader line */
+
 .navbar-loader-line{
 height:3px;
 background:linear-gradient(
@@ -219,6 +234,8 @@ animation:loaderMove 4s linear infinite;
 0%{background-position:-300px;}
 100%{background-position:300px;}
 }
+
+/* Light sweep */
 
 .navbarLightSweep{
 position:absolute;
@@ -241,6 +258,8 @@ pointer-events:none;
 0%{left:-50%;}
 100%{left:120%;}
 }
+
+/* Menu buttons */
 
 .navButton{
 position:relative;
@@ -265,6 +284,8 @@ background:#38bdf8;
 box-shadow:0 0 10px #38bdf8;
 }
 
+/* Donate button */
+
 .donateButton{
 background:linear-gradient(135deg,#06b6d4,#38bdf8);
 color:#021018;
@@ -280,12 +301,12 @@ transform:translateY(-2px);
 box-shadow:0 0 35px rgba(56,189,248,0.9);
 }
 
+/* Logo */
+
 .logoContainer{
 display:flex;
 align-items:center;
-justify-content:center;
 cursor:pointer;
-position:relative;
 }
 
 .logoWrapper{
@@ -312,7 +333,6 @@ height:250%;
 background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);
 transform:rotate(25deg);
 animation:scanLogo 4s linear infinite;
-pointer-events:none;
 }
 
 @keyframes scanLogo{
@@ -332,11 +352,12 @@ pointer-events:none;
 100%{box-shadow:0 0 15px #38bdf8,0 0 40px rgba(56,189,248,.5);}
 }
 
+/* Wave title */
+
 .waveTitle{
 position:relative;
 display:flex;
 align-items:center;
-justify-content:flex-start;
 margin-left:45px;
 }
 
@@ -348,19 +369,19 @@ letter-spacing:1.5px;
 white-space:nowrap;
 }
 
-.waveTitle h2:nth-child(1){
+.waveTitle h2:nth-child(1),
+.waveTitle h2:nth-child(3){
 color:transparent;
 -webkit-text-stroke:1px rgba(255,255,255,0.9);
 }
 
-.waveTitle h2:nth-child(2){
+.waveTitle h2:nth-child(2),
+.waveTitle h2:nth-child(4){
 color:#38bdf8;
-clip-path:polygon(
-0 42%,13% 48%,26% 55%,41% 64%,56% 65%,69% 58%,84% 45%,100% 38%,100% 100%,0% 100%
-);
 }
 
-.startWave h2:nth-child(2){
+.startWave h2:nth-child(2),
+.startWave h2:nth-child(4){
 animation:wave 4s ease-in-out infinite;
 }
 
@@ -375,6 +396,35 @@ clip-path:polygon(
 0 63%,14% 57%,25% 50%,40% 42%,56% 40%,71% 44%,84% 50%,100% 60%,100% 100%,0% 100%
 );
 }
+}
+
+/* Responsive titles */
+
+.desktopTitle{
+display:block;
+}
+
+.mobileTitle{
+display:none;
+}
+
+@media (max-width:900px){
+.waveTitle h2{
+font-size:0.8rem;
+}
+}
+
+@media (max-width:600px){
+
+.desktopTitle{
+display:none;
+}
+
+.mobileTitle{
+display:block;
+font-size:0.9rem;
+}
+
 }
 
 `}</style>
