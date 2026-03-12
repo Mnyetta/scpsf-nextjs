@@ -15,7 +15,6 @@ export default function Navbar() {
     const timer = setTimeout(() => {
       setWaveReady(true);
     }, 4200);
-
     return () => clearTimeout(timer);
   }, []);
 
@@ -41,9 +40,9 @@ export default function Navbar() {
     >
       <Box className="navbar-loader-line" />
 
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Toolbar className="toolbar">
         {/* LEFT SIDE */}
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box className="leftSide">
           <Link href="/" className="logoContainer">
             <div className="logoWrapper">
               <Image
@@ -58,17 +57,17 @@ export default function Navbar() {
           </Link>
 
           {/* SINGLE TITLE */}
-          <Box sx={{ ml: 3 }}>
+          <Box className="titleBox">
             <h2 className={`siteTitle ${waveReady ? "wave" : ""}`}>{title}</h2>
           </Box>
         </Box>
 
         {/* NAVIGATION */}
-        <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
+        <Box className="navLinks">
           {navLinks.map((link, idx) => (
             <Box
               key={idx}
-              sx={{ position: "relative" }}
+              className="navItem"
               onMouseEnter={() => link.dropdown && setLawyerMenuOpen(true)}
               onMouseLeave={() => link.dropdown && setLawyerMenuOpen(false)}
             >
@@ -103,7 +102,28 @@ export default function Navbar() {
         </Box>
       </Toolbar>
 
+      {/* RESPONSIVE CSS */}
       <style jsx>{`
+        .toolbar {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .leftSide {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 1;
+        }
+
+        .titleBox {
+          display: flex;
+          align-items: center;
+        }
+
         .siteTitle {
           color: #38bdf8;
           font-size: 1rem;
@@ -115,10 +135,44 @@ export default function Navbar() {
           animation: float 4s ease-in-out infinite;
         }
 
+        .navLinks {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          flex: 1;
+        }
+
+        .navItem {
+          position: relative;
+        }
+
         @keyframes float {
           0% { transform: translateY(0); }
           50% { transform: translateY(-3px); }
           100% { transform: translateY(0); }
+        }
+
+        /* MOBILE STYLING */
+        @media (max-width: 768px) {
+          .navLinks {
+            justify-content: flex-start;
+            width: 100%;
+            gap: 5px;
+            font-size: 0.9rem;
+          }
+
+          .siteTitle {
+            font-size: 0.9rem;
+          }
+
+          .leftSide {
+            flex-wrap: wrap;
+          }
+
+          .toolbar {
+            padding: 10px 0;
+          }
         }
       `}</style>
     </AppBar>
