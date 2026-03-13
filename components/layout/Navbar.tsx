@@ -42,6 +42,7 @@ export default function Navbar() {
     { label: "Home", href: "/" },
     { label: "About Us", href: "/about-us" },
     { label: "Contact Us", href: "/contact" },
+    { label: "Lawyers", href: "/lawyers"},
     { label: "Donate", href: "/donate" }
   ];
 
