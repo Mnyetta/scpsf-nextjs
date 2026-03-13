@@ -9,9 +9,7 @@ const boardMembers = [
   {
     name: "EMMANUEL PAUL MNG’ARWE",
     position: "BOARD MEMBER",
-    dob: "25/12/1982",
     nationality: "TANZANIAN",
-    nida: "19821225-11101-00002-24",
     gender: "MALE",
     marital: "MARRIED",
     education: "LL.M in Human Rights, Advocate Roll No.7809",
@@ -20,9 +18,7 @@ const boardMembers = [
   {
     name: "JUMA DAVID MWITA",
     position: "BOARD MEMBER",
-    dob: "22/08/1974",
     nationality: "TANZANIAN",
-    nida: "19740822-23306-00001-26",
     gender: "MALE",
     marital: "MARRIED",
     education: "LL.M in International Laws, Advocate Roll No.8189",
@@ -31,9 +27,7 @@ const boardMembers = [
   {
     name: "MARIAGORETH MALIGA",
     position: "FOUNDER AND BOARD MEMBER",
-    dob: "25/11/1986",
     nationality: "TANZANIAN",
-    nida: "19861125-25113-00002-18",
     gender: "FEMALE",
     marital: "MARRIED",
     region: "KILIMANJARO MOSHI",
@@ -46,9 +40,7 @@ const boardMembers = [
   {
     name: "WITNESS JULIUS SHOO",
     position: "FOUNDER",
-    dob: "18/09/1975",
     nationality: "TANZANIAN",
-    nida: "19750918-25101-00001-11",
     gender: "FEMALE",
     marital: "MARRIED",
     region: "KILIMANJARO MOSHI",
