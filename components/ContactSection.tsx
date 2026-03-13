@@ -35,9 +35,9 @@ export default function ContactSection() {
             <p>
               P.O. BOX 8847 Moshi
               <br />
-              Plot No.44, Ndetembea Road
+              Plot No.44, Kiusa street
               <br />
-              Karume Street, Longuo A Ward
+              Kiusa Street, Kiusa Ward
             </p>
 
             <h4>Contact</h4>
