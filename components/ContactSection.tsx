@@ -53,11 +53,11 @@ export default function ContactSection() {
           <div className="map-card">
             <h3>Our Office Location</h3>
 
-            <iframe
-              src="https://maps.google.com/maps?q=Moshi%20Tanzania&t=&z=13&ie=UTF8&iwloc=&output=embed"
-              loading="lazy"
-              className="office-map"
-            ></iframe>
+           <iframe
+  src="https://maps.google.com/maps?q=Moshi%20Municipal%20Council%2C%20Kilimanjaro%2C%20Tanzania&t=&z=14&ie=UTF8&iwloc=&output=embed"
+  loading="lazy"
+  className="office-map"
+></iframe>
 
           </div>
 
