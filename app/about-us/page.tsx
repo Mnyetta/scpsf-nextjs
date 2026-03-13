@@ -134,19 +134,19 @@ export default function AboutUsPage() {
         <Grid container spacing={4} justifyContent="center">
           {boardMembers.map((member, idx) => (
             <Grid item xs={12} sm={6} key={idx}>
-             <Card
-  sx={{
-    height: 388, // increased by 8px
-    background: "linear-gradient(145deg, #ffffff, #f0f0f5)",
-    borderRadius: 4,
-    boxShadow: "0 8px 25px rgba(0,0,0,0.2)",
-    transition: "transform 0.3s, box-shadow 0.3s",
-    "&:hover": {
-      transform: "translateY(-8px)",
-      boxShadow: "0 12px 35px rgba(0,0,0,0.25)",
-    },
-  }}
->
+              <Card
+                sx={{
+                  height: 388,
+                  background: "linear-gradient(145deg, #ffffff, #f0f0f5)",
+                  borderRadius: 4,
+                  boxShadow: "0 8px 25px rgba(0,0,0,0.2)",
+                  transition: "transform 0.3s, box-shadow 0.3s",
+                  "&:hover": {
+                    transform: "translateY(-8px)",
+                    boxShadow: "0 12px 35px rgba(0,0,0,0.25)",
+                  },
+                }}
+              >
                 <CardMedia
                   component="img"
                   image={member.image}
@@ -158,13 +158,16 @@ export default function AboutUsPage() {
                     background: "#e0e0e0",
                   }}
                 />
+
                 <CardContent>
                   <Typography variant="h6" sx={{ fontWeight: "bold", mb: 0.5, color: "#0f172a" }}>
                     {member.name}
                   </Typography>
+
                   <Typography variant="subtitle2" sx={{ mb: 1, color: "#2563eb" }}>
                     {member.position}
                   </Typography>
+
                   <Typography
                     variant="body2"
                     sx={{
@@ -178,9 +181,7 @@ export default function AboutUsPage() {
                       boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
                     }}
                   >
-                    {`DOB: ${member.dob}
-Nationality: ${member.nationality}
-NIDA: ${member.nida}
+{`Nationality: ${member.nationality}
 Gender: ${member.gender}
 Marital Status: ${member.marital || ""}
 ${member.region ? `Region: ${member.region}` : ""}
@@ -196,7 +197,7 @@ Employer: ${member.employer || ""}`}
         </Grid>
       </Box>
 
-      {/* Footer full width */}
+      {/* Footer */}
       <Box sx={{ width: "100%" }}>
         <Footer />
       </Box>
